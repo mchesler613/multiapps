@@ -1,7 +1,7 @@
 # Introduction
-This is a demo of running two apps, *one* and *two*, each with its own database in a Django project
+This is a demo of running two apps, *one* and *two*, each with its own database in a Django project.
 
-# Define models in app *one*
+## Define models in app *one*
 ```
 from django.db import models
 
@@ -16,11 +16,11 @@ class OneModel(models.Model):
         return self.name
 ```
 
-# Define models in app *two*
+## Define models in app *two*
 ```
 from django.db import models
 
-# Create your models here.
+## Create your models here.
 class OneModelId(models.Model):
 
     class Meta:
@@ -40,7 +40,7 @@ class TwoModel(models.Model):
         return self.name
 ```
 
-# Create a database router in *one/router.py*
+## Create a database router in *one/router.py*
 ```
 # This class routes the database operations
 # Reference: `https://docs.djangoproject.com/en/3.2/topics/db/multi-db/`
@@ -83,7 +83,7 @@ class DbRouter:
         return False
 ```
 
-# Define the database router in Django settings, *settings.py*
+## Define the database router in Django settings, *settings.py*
 ```
 # Database Router for routing multiple databases
 DATABASE_ROUTERS = [
@@ -91,7 +91,7 @@ DATABASE_ROUTERS = [
 ]
 ```
 
-# Define the database engines in Django settings, *settings.py*
+## Define the database engines in Django settings, *settings.py*
 ```
 DATABASES = {
     'default': {
@@ -117,7 +117,7 @@ DATABASES = {
 }
 ```
 
-# Add the apps, *one* and *two* to Django settings
+## Add the apps, *one* and *two* to Django settings
 ```
 # Application definition
 
@@ -133,12 +133,12 @@ INSTALLED_APPS = [
 ]
 ```
 
-# Create two Postgres databases, *one_db*, and *two_db*, defined in *django.psql* using *psql*
+## Create two Postgres databases, *one_db*, and *two_db*, defined in *django.psql* using *psql*
 ```
 $ psql -U postgres -f django.psql
 ```
 
-# Content of *django.psql*
+## Content of *django.psql*
 ```
 CREATE DATABASE one_db;
 CREATE DATABASE two_db;
@@ -151,17 +151,17 @@ GRANT ALL PRIVILEGES ON DATABASE one_db TO admin ;
 GRANT ALL PRIVILEGES ON DATABASE two_db TO admin ;
 ```
 
-# Make migrations for the two apps
+## Make migrations for the two apps
 ```
 $ python manage.py makemigrations one two
 $ python manage.py migrate --database=one_db
 $ python manage.py migrate --database=two_db
 ```
 
-# Make migrations for the rest of the tables (auth, admin, etc.)
+## Make migrations for the rest of the tables (auth, admin, etc.)
 $ python manage.py migrate
 
-# Check the content of database, *one_db*, with psql 
+## Check the content of database, *one_db*, with psql 
 ```
 $ psql -d one_db -U admin -W
 psql (11.10)Type "help" for help.one_db=> \dt                  
@@ -185,7 +185,7 @@ id | name ----+------
 (0 rows)
 ```
 
-# Check the content of database, *two_db*, with psql 
+## Check the content of database, *two_db*, with psql 
 ```
 $ psql -d two_db -U admin -W
 psql (11.10)Type "help" for help.
@@ -215,7 +215,7 @@ id | name | one_model_id
 (0 rows)
 ```
 
-# Register the apps, *one* and *two*, with the Admin in *admin.py*
+## Register the apps, *one* and *two*, with the Admin in *admin.py*
 ```
 # one/admin.py
 from django.contrib import admin
@@ -235,13 +235,13 @@ admin.site.register(TwoModel)
 admin.site.register(OneModelId)
 ```
 
-# Create a superuser and access the Django admin
+## Create a superuser and access the Django admin
 ```
 $ python manage.py createsuperuser
 ```
 In Django Admin, create instances for OneModel (residing in one_db), OneModelId and TwoModel (both in two_db)
 
-# Query and Create Instances with Django's Model API
+## Query and Create Instances with Django's Model API
 ```
 $ python manage.py shell
 Python 3.8.7 (default, Jan  4 2021, 21:17:21) 
@@ -271,7 +271,7 @@ In [7]: OneModelId.objects.create(id=OneModel.objects.last().id)
 Out[7]: <OneModelId: 2> 
 ```
 
-# Verify content in database, *one_db*, using psql
+## Verify content in database, *one_db*, using psql
 ```
 $ psql -d one_db -U admin -W
 Password: psql (11.10)
@@ -285,7 +285,7 @@ id | name
 one_db=> \q
 ```
 
-# Verify content in database, *two_db*, using psql
+## Verify content in database, *two_db*, using psql
 ```
 $ psql -d two_db -U admin -W
 Password: 
