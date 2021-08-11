@@ -1,0 +1,10 @@
+from django.apps import AppConfig
+from .signals import save_one_model
+
+
+class OneConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'one'
+
+    def ready(self):
+        post_save.connect(save_one_model, sender=OneModel)
