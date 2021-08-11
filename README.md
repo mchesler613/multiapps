@@ -1,7 +1,7 @@
 # Introduction
-This is a demo of running two apps, `one` and `two`, each with its own database in a Django project
+This is a demo of running two apps, *one* and *two*, each with its own database in a Django project
 
-# Define models in app `one`
+# Define models in app *one*
 ```
 from django.db import models
 
@@ -16,7 +16,7 @@ class OneModel(models.Model):
         return self.name
 ```
 
-# Define models in app `two`
+# Define models in app *two*
 ```
 from django.db import models
 
@@ -83,7 +83,7 @@ class DbRouter:
         return False
 ```
 
-# Define the database router in Djangon settings, *settings.py*
+# Define the database router in Django settings, *settings.py*
 ```
 # Database Router for routing multiple databases
 DATABASE_ROUTERS = [
@@ -117,7 +117,7 @@ DATABASES = {
 }
 ```
 
-# Create two Postgres databases, one_db, and two_db, defined in `django.psql`, using `psql`
+# Create two Postgres databases, *one_db*, and *two_db*, defined in *django.psql* using *psql*
 ```
 $ psql -U postgres -f django.psql
 ```
@@ -132,7 +132,7 @@ $ python manage.py migrate --database=two_db
 # Make migrations for the rest of the tables (auth, admin, etc.)
 $ python manage.py migrate
 
-# Check the content of database, one_db, with psql 
+# Check the content of database, *one_db*, with psql 
 ```
 $ psql -d one_db -U admin -W
 psql (11.10)Type "help" for help.one_db=> \dt                  
@@ -156,7 +156,7 @@ id | name ----+------
 (0 rows)
 ```
 
-# Check the content of database, two_db, with psql 
+# Check the content of database, *two_db*, with psql 
 ```
 $ psql -d two_db -U admin -W
 psql (11.10)Type "help" for help.
@@ -222,7 +222,7 @@ In [7]: OneModelId.objects.create(id=OneModel.objects.last().id)
 Out[7]: <OneModelId: 2> 
 ```
 
-# Verify content in database, one_db, using psql
+# Verify content in database, *one_db*, using psql
 ```
 $ psql -d one_db -U admin -W
 Password: psql (11.10)
@@ -236,7 +236,7 @@ id | name
 one_db=> \q
 ```
 
-# Verify content in database, two_db, using psql
+# Verify content in database, *two_db*, using psql
 ```
 $ psql -d two_db -U admin -W
 Password: 
