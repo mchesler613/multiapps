@@ -47,8 +47,3 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
-
-# settings.py
-settings.py
-wsgi.py
