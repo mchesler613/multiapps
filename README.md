@@ -117,6 +117,22 @@ DATABASES = {
 }
 ```
 
+# Add the apps, *one* and *two* to Django settings
+```
+# Application definition
+
+INSTALLED_APPS = [
+    'one.apps.OneConfig',
+    'two.apps.TwoConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+```
+
 # Create two Postgres databases, *one_db*, and *two_db*, defined in *django.psql* using *psql*
 ```
 $ psql -U postgres -f django.psql
@@ -197,6 +213,26 @@ two_db=> select * from two_twomodel;
 id | name | one_model_id 
 ----+------+--------------
 (0 rows)
+```
+
+# Register the apps, *one* and *two*, with the Admin in *admin.py*
+```
+# one/admin.py
+from django.contrib import admin
+from .models import OneModel
+
+# Register your models here.
+admin.site.register(OneModel)
+```
+
+```
+# two/admin.py
+from django.contrib import admin
+from .models import TwoModel, OneModelId
+
+# Register your models here.
+admin.site.register(TwoModel)
+admin.site.register(OneModelId)
 ```
 
 # Create a superuser and access the Django admin
