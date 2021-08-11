@@ -122,6 +122,19 @@ DATABASES = {
 $ psql -U postgres -f django.psql
 ```
 
+# Content of *django.psql*
+```
+CREATE DATABASE one_db;
+CREATE DATABASE two_db;
+
+CREATE USER admin WITH ENCRYPTED PASSWORD 'secret_password';
+ALTER ROLE admin SET client_encoding TO 'utf8';
+ALTER ROLE admin SET default_transaction_isolation TO 'read committed';
+ALTER ROLE admin SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE one_db TO admin ;
+GRANT ALL PRIVILEGES ON DATABASE two_db TO admin ;
+```
+
 # Make migrations for the two apps
 ```
 $ python manage.py makemigrations one two
